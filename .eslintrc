@@ -27,7 +27,9 @@
       {
         "argsIgnorePattern": "^_"
       }
-    ]
+    ],
+    "@typescript-eslint/ban-ts-comment": ["warn"],
+    "@typescript-eslint/no-non-null-assertion": ["warn"]
   },
   "settings": {
     "react": {
