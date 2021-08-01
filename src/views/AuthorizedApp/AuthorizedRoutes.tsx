@@ -10,7 +10,7 @@ interface AuthorizedRouteProps {
 export function AuthorizedRoutes({
   basePath,
 }: AuthorizedRouteProps): JSX.Element {
-  const isAuthenticated = false;
+  const isAuthenticated = true;
   return (
     <React.Suspense fallback={<div>loading</div>}>
       {isAuthenticated ? (
