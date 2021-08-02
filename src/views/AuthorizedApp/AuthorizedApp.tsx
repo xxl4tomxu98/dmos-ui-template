@@ -13,17 +13,13 @@ export default function AuthorizedApp({
     <PrimaryLayout>
       <Route
         path={`${basePath}`}
-        exact
-        render={() => <Redirect to={`${basePath}home`} />}
+        render={() => <Redirect to={`${basePath}/home`} />}
       />
-      <Route path={`${basePath}home`}>
+      <Route path={`${basePath}/home`}>
         <Home />
       </Route>
-      <Route path={`${basePath}faq`}>
+      <Route path={`${basePath}/faq`}>
         <Faq />
-      </Route>
-      <Route path='*'>
-        <Redirect to='/home' />
       </Route>
     </PrimaryLayout>
   );
