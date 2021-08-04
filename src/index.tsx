@@ -1,14 +1,30 @@
 import { ColorModeScript } from '@chakra-ui/react';
+import { ReactKeycloakProvider } from '@react-keycloak/web';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { App } from './App';
 import './index.css';
+import keycloak from './keycloak';
 import reportWebVitals from './reportWebVitals';
+
+const eventLogger = (event: unknown, error: unknown) => {
+  console.log('onKeycloakEvent', event, error);
+};
+
+const tokenLogger = (tokens: unknown) => {
+  console.log('onKeycloakTokens', tokens);
+};
 
 ReactDOM.render(
   <React.StrictMode>
-    <ColorModeScript />
-    <App />
+    <ReactKeycloakProvider
+      authClient={keycloak}
+      onEvent={eventLogger}
+      onTokens={tokenLogger}
+    >
+      <ColorModeScript />
+      <App />
+    </ReactKeycloakProvider>
   </React.StrictMode>,
   document.getElementById('root'),
 );

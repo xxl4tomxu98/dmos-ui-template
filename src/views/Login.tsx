@@ -1,28 +1,31 @@
-import { Tokens } from '@okta/okta-auth-js';
-import { useOktaAuth } from '@okta/okta-react';
-import OktaSignIn from '@okta/okta-signin-widget';
-import { Redirect } from 'react-router-dom';
-import { OktaSignInWidget } from 'src/components/OktaSignInWidget';
+import { Button } from '@chakra-ui/react';
+import { useKeycloak } from '@react-keycloak/web';
+import React from 'react';
+import { Redirect, useLocation } from 'react-router-dom';
 
-interface LoginProps {
-  config: OktaSignIn.WidgetConfig;
-}
-export function Login({ config }: LoginProps): JSX.Element | null {
-  const { oktaAuth, authState } = useOktaAuth();
-
-  const onSuccess = (tokens: Tokens) => {
-    oktaAuth.handleLoginRedirect(tokens);
+export function Login(): JSX.Element | null {
+  const location = useLocation<{ [key: string]: unknown }>();
+  const currentLocationState = location.state || {
+    from: { pathname: '/app' },
   };
 
-  const onError = (err: unknown) => {
-    console.log('error logging in', err);
-  };
+  const { keycloak } = useKeycloak();
 
-  if (!authState) return null;
+  const login = React.useCallback(() => {
+    keycloak?.login();
+  }, [keycloak]);
+  const logout = React.useCallback(() => {
+    keycloak?.logout();
+  }, [keycloak]);
 
-  return authState.isAuthenticated ? (
-    <Redirect to={{ pathname: '/app' }} />
-  ) : (
-    <OktaSignInWidget config={config} onSuccess={onSuccess} onError={onError} />
+  if (keycloak?.authenticated) {
+    return <Redirect to={currentLocationState?.from as string} />;
+  }
+
+  return (
+    <div>
+      <Button onClick={login}>Login</Button>
+      <Button onClick={logout}>Logout</Button>
+    </div>
   );
 }
