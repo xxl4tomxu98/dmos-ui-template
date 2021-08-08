@@ -26,8 +26,8 @@ export function Login(): JSX.Element | null {
     <div>
       <Button onClick={login}>Login</Button>
       <Button onClick={logout}>Logout</Button>
-      <Link as={RouterLink} to='/counter'>
-        To Counter
+      <Link as={RouterLink} to='/playground'>
+        To Playground
       </Link>
     </div>
   );
