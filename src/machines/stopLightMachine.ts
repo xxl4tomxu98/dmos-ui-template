@@ -85,7 +85,7 @@ export const stopLightMachine = Machine<
   {
     actions: {
       updateColorSwatch: assign((_ctx, event) => ({
-        colorSwatchValue: (event as NextEvent).color,
+        colorSwatchValue: (event as NextEvent).color ?? StopLightColors.GREEN,
       })),
     },
   },
