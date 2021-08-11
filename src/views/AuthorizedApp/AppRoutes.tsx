@@ -12,7 +12,6 @@ export function AppRoutes(): JSX.Element | null {
   if (!initialized) {
     return <PageSpinner />;
   }
-
   return (
     <RouterSwitch>
       <Redirect exact from='/' to='/app' />
@@ -21,7 +20,12 @@ export function AppRoutes(): JSX.Element | null {
       <Route path='/playground'>
         <Playground />
       </Route>
-      <Route render={() => <div>not found</div>} />
+      <Route
+        render={() => (
+          // TODO: Hunter - Create 404
+          <div>not found</div>
+        )}
+      />
     </RouterSwitch>
   );
 }

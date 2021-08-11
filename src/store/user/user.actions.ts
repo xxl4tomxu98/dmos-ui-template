@@ -1,40 +1,24 @@
 import { Action, createAction } from '../action-utils';
+import { UserData } from './user.reducers';
 
 export enum UserActionTypes {
-  FETCH_USER = '[user] Fetch User',
-  SET_USER_LOADING = '[user] Set User Loading',
-  FETCH_USER_SUCCESS = '[user] Fetch User Success',
-  FETCH_USER_FAILURE = '[user] Fetch User Failure',
+  SET_USER_DATA = '[user] Set User Data',
+  CLEAR_USER_DATA = '[user] Clear User Data',
 }
 
-export type FetchUserAction = Action<typeof UserActionTypes.FETCH_USER>;
-export type FetchUserSuccess = Action<
-  typeof UserActionTypes.FETCH_USER_SUCCESS,
-  { name: string }
+export type SetUserData = Action<
+  typeof UserActionTypes.SET_USER_DATA,
+  UserData
 >;
-export type FetchUserFailure = Action<
-  typeof UserActionTypes.FETCH_USER_FAILURE,
-  { message: string }
->;
-export type SetUserLoading = Action<typeof UserActionTypes.SET_USER_LOADING>;
+export type ClearUserData = Action<typeof UserActionTypes.CLEAR_USER_DATA>;
 
 // Action Creators
-export function fetchUser(): FetchUserAction {
-  return createAction(UserActionTypes.FETCH_USER);
+export function setUserData(data: UserData): SetUserData {
+  return createAction(UserActionTypes.SET_USER_DATA, data);
 }
-export function fetchUserSuccess(name: string): FetchUserSuccess {
-  return createAction(UserActionTypes.FETCH_USER_SUCCESS, { name });
-}
-export function fetchUserFailure(message: string): FetchUserFailure {
-  return createAction(UserActionTypes.FETCH_USER_FAILURE, { message });
-}
-export function setUserLoading(): SetUserLoading {
-  return createAction(UserActionTypes.SET_USER_LOADING);
+export function clearUserData(): ClearUserData {
+  return createAction(UserActionTypes.CLEAR_USER_DATA);
 }
 
 // Action types
-export type UserAction =
-  | FetchUserAction
-  | FetchUserSuccess
-  | FetchUserFailure
-  | SetUserLoading;
+export type UserAction = SetUserData | ClearUserData;
