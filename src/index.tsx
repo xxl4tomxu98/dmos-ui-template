@@ -2,10 +2,12 @@ import { ColorModeScript } from '@chakra-ui/react';
 import { ReactKeycloakProvider } from '@react-keycloak/web';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider as ReduxProvider } from 'react-redux';
 import { App } from './App';
 import './index.css';
 import keycloak from './keycloak';
 import reportWebVitals from './reportWebVitals';
+import { history, store } from './store/store';
 
 const eventLogger = (event: unknown, error: unknown) => {
   console.log('onKeycloakEvent', event, error);
@@ -22,8 +24,10 @@ ReactDOM.render(
       onEvent={eventLogger}
       onTokens={tokenLogger}
     >
-      <ColorModeScript />
-      <App />
+      <ReduxProvider store={store}>
+        <ColorModeScript />
+        <App history={history} />
+      </ReduxProvider>
     </ReactKeycloakProvider>
   </React.StrictMode>,
   document.getElementById('root'),

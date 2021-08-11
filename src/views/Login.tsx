@@ -1,7 +1,7 @@
-import { Button } from '@chakra-ui/react';
+import { Button, Link } from '@chakra-ui/react';
 import { useKeycloak } from '@react-keycloak/web';
 import React from 'react';
-import { Redirect, useLocation } from 'react-router-dom';
+import { Link as RouterLink, Redirect, useLocation } from 'react-router-dom';
 
 export function Login(): JSX.Element | null {
   const location = useLocation<{ [key: string]: unknown }>();
@@ -26,6 +26,9 @@ export function Login(): JSX.Element | null {
     <div>
       <Button onClick={login}>Login</Button>
       <Button onClick={logout}>Logout</Button>
+      <Link as={RouterLink} to='/playground'>
+        To Playground
+      </Link>
     </div>
   );
 }

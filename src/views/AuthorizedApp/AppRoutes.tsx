@@ -1,13 +1,9 @@
 import { useKeycloak } from '@react-keycloak/web';
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch as RouterSwitch,
-} from 'react-router-dom';
+import { Redirect, Route, Switch as RouterSwitch } from 'react-router-dom';
 import { PageSpinner } from 'src/components/PageSpinner';
 import { PrivateRoute } from 'src/components/PrivateRoute';
 import { Login } from '../Login';
+import { Playground } from '../Playground';
 import AuthorizedApp from './AuthorizedApp';
 
 export function AppRoutes(): JSX.Element | null {
@@ -16,14 +12,16 @@ export function AppRoutes(): JSX.Element | null {
   if (!initialized) {
     return <PageSpinner />;
   }
+
   return (
-    <Router>
-      <RouterSwitch>
-        <Redirect exact from='/' to='/app' />
-        <PrivateRoute path='/app' component={AuthorizedApp} />
-        <Route path='/login' component={Login} />
-        <Route render={() => <div>not found</div>} />
-      </RouterSwitch>
-    </Router>
+    <RouterSwitch>
+      <Redirect exact from='/' to='/app' />
+      <PrivateRoute path='/app' component={AuthorizedApp} />
+      <Route path='/login' component={Login} />
+      <Route path='/playground'>
+        <Playground />
+      </Route>
+      <Route render={() => <div>not found</div>} />
+    </RouterSwitch>
   );
 }
