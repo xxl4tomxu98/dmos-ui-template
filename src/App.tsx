@@ -3,7 +3,6 @@ import { ConnectedRouter } from 'connected-react-router';
 import { History } from 'history';
 import { ErrorBoundary } from 'react-error-boundary';
 import { ErrorAlert } from './components/ErrorAlert';
-import { useSetUserData } from './features/user/use-set-user-data';
 import { AppRoutes } from './views/AuthorizedApp/AppRoutes';
 
 interface AppProps {
@@ -11,7 +10,7 @@ interface AppProps {
 }
 export function App({ history }: AppProps): JSX.Element | null {
   // Sending user data to the store when available
-  useSetUserData();
+  // useSetUserData();
 
   return (
     <ChakraProvider theme={theme}>
